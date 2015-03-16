@@ -22,7 +22,7 @@ NOTE_C7, NOTE_CS7, NOTE_D7, NOTE_DS7, NOTE_E7, NOTE_F7, NOTE_FS7, NOTE_G7, NOTE_
 
 #define isdigit(n) (n >= '0' && n <= '9')
 
-typedef bool (*StopWhen)();
+typedef bool (*StopWhen)(byte note);
 
 void play_rtttl(Tone* tone1, const char *p, StopWhen callback)
 {
@@ -176,6 +176,10 @@ void play_rtttl(Tone* tone1, const char *p, StopWhen callback)
 //      Serial.print(") ");
 //      Serial.println(duration, 10);
       tone1->play(notes[(scale - 4) * 12 + note]);
+      
+      if (callback(note))
+        break;
+      
       delay(duration);
       tone1->stop();
     }
@@ -186,7 +190,6 @@ void play_rtttl(Tone* tone1, const char *p, StopWhen callback)
       delay(duration);
     }
     
-    if (callback())
-      break;
+
   }
 }

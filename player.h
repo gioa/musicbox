@@ -3,8 +3,9 @@
 #define _PLAYER_H
 
 #include <Tone.h>
+#include <Arduino.h>
 
-typedef bool (*StopWhen)();
+typedef bool (*StopWhen)(byte);
 
 class Player {
   
