@@ -20,12 +20,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 *************************************************/
-#include "Tone.h"
 
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include <wiring_private.h>
+#include <wiring.h>
 #include <pins_arduino.h>
+#include "Tone.h"
 
 #if defined(__AVR_ATmega8__)
 #define TCCR2A TCCR2

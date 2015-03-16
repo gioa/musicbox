@@ -9,7 +9,7 @@
 
 #include <Arduino.h>
 
-#include "Tone.h"
+#include <Tone.h>
 
 #define OCTAVE_OFFSET 0
 
@@ -22,7 +22,9 @@ NOTE_C7, NOTE_CS7, NOTE_D7, NOTE_DS7, NOTE_E7, NOTE_F7, NOTE_FS7, NOTE_G7, NOTE_
 
 #define isdigit(n) (n >= '0' && n <= '9')
 
-void play_rtttl(Tone* tone1, const char *p)
+typedef bool (*StopWhen)();
+
+void play_rtttl(Tone* tone1, const char *p, StopWhen callback)
 {
   // Absolutely no error checking in here
 
@@ -179,9 +181,12 @@ void play_rtttl(Tone* tone1, const char *p)
     }
     else
     {
-//      Serial.print("Pausing: ");
-//      Serial.println(duration, 10);
+      //Serial.print("Pausing: ");
+      //Serial.println(duration, 10);
       delay(duration);
     }
+    
+    if (callback())
+      break;
   }
 }
