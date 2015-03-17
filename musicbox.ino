@@ -10,7 +10,7 @@
 
 #define BUZZER 7
 #define FLASH 13
-#define BUTTON 3
+#define POWER_BUTTON 3
 #define BUTTON_INTERRUPT 0
 #define TOUCH_INTERRUPT 1
 #define MOTOR 6
@@ -54,10 +54,13 @@ volatile bool power = false;
 
 bool callback(byte note) {
 
+  // stop playing immediately if power button is pressed
+  if (digitalRead(POWER_BUTTON) == HIGH) {
+    return true;
+  }
   
   lcd->setCursor(0,1);
-  lcd->print("bb");
-  //lcd->print("                ");
+  lcd->print("                ");
   
   //
   float fraction = (float)note/12;
@@ -113,11 +116,31 @@ void setup() {
 int song_index = 0;
 int song_count = sizeof(songs)/sizeof(*songs);
 
+void turnOff() {
+  // turn off the lcd etc
+}
+
+void turnOn() {
+
+
+}
+
 void loop() {
-//  if (!power)
-//    return;
-//    
+    if (digitalRead(POWER_BUTTON) == HIGH) {
+      if (power) {
+        power = false;
+        turnOff();
+      } else {
+        power = true;
+        turnOn();
+      }
+      delay(500);
+    }
+
+  if (!power)
+    return;
     
+   
   if (song_index >= song_count)
     song_index -= song_count;
 
