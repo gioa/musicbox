@@ -12,7 +12,7 @@
 #define BUZZER 7
 #define FLASH 13
 #define POWER_BUTTON 8
-#define BUTTON_INTERRUPT 0
+#define POWER_INTERRUPT 0
 #define TOUCH_INTERRUPT 1
 #define MOTOR 6
 
@@ -52,6 +52,7 @@ Player* player = NULL;
 rgb_lcd* lcd = NULL;
 volatile bool switchClicked = false;
 volatile bool power = false;
+volatile bool powerClicked = false;
 
 bool callback(byte note) {
 
@@ -82,10 +83,11 @@ void onSwitchClick() {
 
 }
 
-//void onPowerClick() {
-//  power = !power;
-//  Serial.println("Power button");
-//}
+void onPowerClick() {
+  power = !power;
+  powerClicked = true;
+  Serial.println("Power button");
+}
 
 
 
@@ -111,7 +113,7 @@ void setup() {
   
   // button interrupt
   attachInterrupt(TOUCH_INTERRUPT, onSwitchClick, RISING);
-  //attachInterrupt(BUTTON_INTERRUPT, onPowerClick, RISING);
+  attachInterrupt(POWER_INTERRUPT, onPowerClick, RISING);
 
 }
 
@@ -124,34 +126,35 @@ void turnOff() {
   lcd->setCursor(0,0); 
   lcd->print("Byebye!");
   lcd->display();
-  delay(500);
+  delay(1000);
   lcd->noDisplay();
   
 }
 
 void turnOn() {
   lcd->setCursor(0,0); 
-  byte r = random(256);
-  byte g = random(256);
-  byte b = random(256);
-  lcd->setRGB(r, g, b); 
-  
   lcd->print("Welcome!");
   lcd->display();
-  
+  delay(1000);
 }
 
 void loop() {
-    if (digitalRead(POWER_BUTTON) == HIGH) {
-      if (power) {
-        power = false;
-        turnOff();
-      } else {
-        power = true;
-        turnOn();
-      }
-      delay(500);
-    }
+//    if (digitalRead(POWER_BUTTON) == HIGH) {
+//      if (power) {
+//        power = false;
+//        turnOff();
+//      } else {
+//        power = true;
+//        turnOn();
+//      }
+//      delay(500);
+//    }
+  if (powerClicked) {
+    if (power)
+      turnOn();
+    else
+      turnOff();
+  }
 
   if (!power)
     return;
