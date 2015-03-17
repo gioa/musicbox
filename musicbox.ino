@@ -130,6 +130,7 @@ void turnOff() {
 }
 
 void turnOn() {
+  lcd->clear();
   lcd->setCursor(0,0); 
   lcd->print("Welcome!");
   lcd->display();
