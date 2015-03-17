@@ -150,6 +150,8 @@ void loop() {
 //      delay(500);
 //    }
   if (powerClicked) {
+    powerClicked = false;
+    
     if (power)
       turnOn();
     else
