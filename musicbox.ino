@@ -56,10 +56,8 @@ volatile bool powerClicked = false;
 
 bool callback(byte note) {
 
-  // stop playing immediately if power button is pressed
-  if (digitalRead(POWER_BUTTON) == HIGH) {
+  if (!power)
     return true;
-  }
   
   lcd->setCursor(0,1);
   lcd->print("                ");
