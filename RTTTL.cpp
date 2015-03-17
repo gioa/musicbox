@@ -167,6 +167,11 @@ void play_rtttl(Tone* tone1, const char *p, StopWhen callback)
 
     // now play the note
 
+
+      if (callback(note))
+        break;
+        
+        
     if(note)
     {
 //      Serial.print("Playing: ");
@@ -175,11 +180,9 @@ void play_rtttl(Tone* tone1, const char *p, StopWhen callback)
 //      Serial.print(notes[(scale - 4) * 12 + note], 10);
 //      Serial.print(") ");
 //      Serial.println(duration, 10);
+
       tone1->play(notes[(scale - 4) * 12 + note]);
-      
-      if (callback(note))
-        break;
-      
+           
       delay(duration);
       tone1->stop();
     }
