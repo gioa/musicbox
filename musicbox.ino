@@ -103,6 +103,7 @@ void setup() {
   lcd->createChar(SQUARE, charMap);
 
   pinMode(MOTOR, OUTPUT);
+  pinMode(POWER_BUTTON, OUTPUT);
   digitalWrite(MOTOR, HIGH);
   
   //random number
