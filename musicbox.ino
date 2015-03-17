@@ -1,6 +1,7 @@
-#include <Tone.h>
 #include <Wire.h>
+#include <Tone.h>
 #include <string.h>
+
 
 #include "player.h"
 #include "rgb_lcd.h"
@@ -10,7 +11,7 @@
 
 #define BUZZER 7
 #define FLASH 13
-#define POWER_BUTTON 3
+#define POWER_BUTTON 8
 #define BUTTON_INTERRUPT 0
 #define TOUCH_INTERRUPT 1
 #define MOTOR 6
@@ -144,16 +145,19 @@ void loop() {
   if (song_index >= song_count)
     song_index -= song_count;
 
-   byte r = random(256);
-  byte g = random(256);
-  byte b = random(256);
-  lcd->setRGB(r, g, b); 
+
 
   Serial.print("switch song:");
   Serial.println(songs[song_index].title);
   
   lcd->clear();
   lcd->setCursor(0,0);
+  
+  byte r = random(256);
+  byte g = random(256);
+  byte b = random(256);
+  lcd->setRGB(r, g, b); 
+  
   lcd->print(songs[song_index].title);
   lcd->display();
   
