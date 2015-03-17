@@ -120,11 +120,25 @@ int song_count = sizeof(songs)/sizeof(*songs);
 
 void turnOff() {
   // turn off the lcd etc
+  lcd->clear();
+  lcd->setCursor(0,0); 
+  lcd->print("Byebye!");
+  lcd->display();
+  delay(500);
+  lcd->noDisplay();
+  
 }
 
 void turnOn() {
-
-
+  lcd->setCursor(0,0); 
+  byte r = random(256);
+  byte g = random(256);
+  byte b = random(256);
+  lcd->setRGB(r, g, b); 
+  
+  lcd->print("Welcome!");
+  lcd->display();
+  
 }
 
 void loop() {
