@@ -10,7 +10,7 @@
 #define THRESHOLD_VALUE 400 //The threshold to turn the led on 400.00*5/1024 = 1.95v
 
 #define BUZZER 7
-#define FLASH 13
+#define MOTORPOWER 13
 #define POWER_BUTTON 8
 #define POWER_INTERRUPT 0
 #define TOUCH_INTERRUPT 1
@@ -26,7 +26,7 @@ struct Song {
 Song songs[] = {
 {"Mission Impossible", "MissionImp:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d"},
 {"Star Wars", "StarWars:d=4,o=5,b=45:32p,32f#,32f#,32f#,8b.,8f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32e6,8c#.6,32f#,32f#,32f#,8b.,8f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32c#6,8b.6,16f#.6,32e6,32d#6,32e6,8c#6"},
-//"The Simpsons:d=4,o=5,b=160:c.6,e6,f#6,8a6,g.6,e6,c6,8a,8f#,8f#,8f#,2g,8p,8p,8f#,8f#,8f#,8g,a#.,8c6,8c6,8c6,c6",
+//"The Simpsons:d=4,o=5,b=160:c.6,e6,f#6,8a6,g.6,e6,c6,8a,8f#,8f#,8f#,2g,8p,8p,8f#,8f#,8f#,8g,a#.,8c6,8c6,8c6,c6"},
 //"Indiana:d=4,o=5,b=250:e,8p,8f,8g,8p,1c6,8p.,d,8p,8e,1f,p.,g,8p,8a,8b,8p,1f6,p,a,8p,8b,2c6,2d6,2e6,e,8p,8f,8g,8p,1c6,p,d6,8p,8e6,1f.6,g,8p,8g,e.6,8p,d6,8p,8g,e.6,8p,d6,8p,8g,f.6,8p,e6,8p,8d6,2c6",
 //"TakeOnMe:d=4,o=4,b=160:8f#5,8f#5,8f#5,8d5,8p,8b,8p,8e5,8p,8e5,8p,8e5,8g#5,8g#5,8a5,8b5,8a5,8a5,8a5,8e5,8p,8d5,8p,8f#5,8p,8f#5,8p,8f#5,8e5,8e5,8f#5,8e5,8f#5,8f#5,8f#5,8d5,8p,8b,8p,8e5,8p,8e5,8p,8e5,8g#5,8g#5,8a5,8b5,8a5,8a5,8a5,8e5,8p,8d5,8p,8f#5,8p,8f#5,8p,8f#5,8e5,8e5",
 //"Entertainer:d=4,o=5,b=140:8d,8d#,8e,c6,8e,c6,8e,2c.6,8c6,8d6,8d#6,8e6,8c6,8d6,e6,8b,d6,2c6,p,8d,8d#,8e,c6,8e,c6,8e,2c.6,8p,8a,8g,8f#,8a,8c6,e6,8d6,8c6,8a,2d6",
@@ -104,7 +104,9 @@ void setup() {
 
   pinMode(MOTOR, OUTPUT);
   pinMode(POWER_BUTTON, OUTPUT);
-  digitalWrite(MOTOR, HIGH);
+//  pinMode(MOTORPOWER, OUTPUT);
+//  digitalWrite(MOTORPOWER, HIGH);
+  
   
   //random number
   randomSeed(analogRead(0));
@@ -127,6 +129,7 @@ void turnOff() {
   delay(1000);
   lcd->noDisplay();
   
+  digitalWrite(MOTOR,LOW); 
 }
 
 void turnOn() {
@@ -135,6 +138,7 @@ void turnOn() {
   lcd->print("Welcome!");
   lcd->display();
   delay(1000);
+  digitalWrite(MOTOR, HIGH); 
 }
 
 void loop() {
@@ -197,13 +201,13 @@ void pins_init()
 //	pinMode(LIGHT_SENSOR, INPUT); 
 }
 
-void flashLED(){
-     Serial.print("FLASH! ");
-     digitalWrite(FLASH, HIGH);   // turn the LED on (HIGH is the voltage level)
-     delay(50);              // wait for a second
-     digitalWrite(FLASH, LOW);    // turn the LED off by making the voltage LOW
-     delay(50);              // wait for a second
-}
+//void flashLED(){
+//     Serial.print("FLASH! ");
+//     digitalWrite(FLASH, HIGH);   // turn the LED on (HIGH is the voltage level)
+//     delay(50);              // wait for a second
+//     digitalWrite(FLASH, LOW);    // turn the LED off by making the voltage LOW
+//     delay(50);              // wait for a second
+//}
 
 
 
